@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
       home: LoginScreen(),
       initialRoute: 'login',
       routes: {
-        'login':    (BuildContext context) => LoginScreen()
+        'login':    (BuildContext context) => LoginScreen(),
+        'listview2': (BuildContext context) => const ListviewScreen2(),
       },
     );
   }

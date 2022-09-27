@@ -21,6 +21,7 @@ class LoginScreen extends StatelessWidget {
       final route = MaterialPageRoute(builder: (context) => RegisterScreen(user:  User(),));
       final user = await Navigator.push(context, route) as User;
       users.add(user);
+      globalDialog.seeDialogInfo(context, "usuario registrado con exito");
     }
 
     void login(){
@@ -30,7 +31,7 @@ class LoginScreen extends StatelessWidget {
           globalDialog.seeDialogError(context, 'No existe el usuario');
         }
         else{
-          globalDialog.seeDialogInfo(context, 'Inicio de sesion realizado con exito');
+          Navigator.pushNamed(context, 'listview2');
         }
       }
       else{
