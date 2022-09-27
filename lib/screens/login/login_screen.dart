@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:taller1/screens/login/register_screen.dart';
 import 'package:taller1/widgets/widgets.dart';
+
+import '../../models/user.dart';
 
 class LoginScreen extends StatelessWidget {
   final GlobalWidgetDialog globalDialog = GlobalWidgetDialog();
@@ -11,6 +14,30 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    List<User> users = [];
+
+    void registerUser(context) async{
+      final route = MaterialPageRoute(builder: (context) => RegisterScreen(user:  User(),));
+      final user = await Navigator.push(context, route) as User;
+      users.add(user);
+    }
+
+    void login(){
+      if(passwordController.text.isNotEmpty && userNameController.text.isNotEmpty){
+        int exist = users.indexWhere((user) => user.password == passwordController.text && user.userName == userNameController.text);
+        if(exist == -1){
+          globalDialog.seeDialogError(context, 'No existe el usuario');
+        }
+        else{
+          globalDialog.seeDialogInfo(context, 'Inicio de sesion realizado con exito');
+        }
+      }
+      else{
+        
+      }
+    }
+
     Size size = MediaQuery
         .of(context)
         .size;
@@ -41,12 +68,12 @@ class LoginScreen extends StatelessWidget {
               RadialButton(
                   color: mainColor,
                   text: "Entrar",
-                  press: () => {},
+                  press: login,
                   textColor: Colors.white
               ),
-              const Padding(
-              padding: EdgeInsets.all(5.0),
-                child: LoginDetail(),
+              Padding(
+              padding: const EdgeInsets.all(5.0),
+                child: LoginDetail(registerUser: registerUser),
               )
             ],
           ),
@@ -57,8 +84,12 @@ class LoginScreen extends StatelessWidget {
 }
 
 class LoginDetail extends StatelessWidget {
+
+  final Function registerUser;
+
   const LoginDetail({
     Key? key,
+    required this.registerUser,
   }) : super(key: key);
 
   @override
@@ -72,7 +103,7 @@ class LoginDetail extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () => {
-            Navigator.pushNamed(context, 'register')
+            registerUser(context, )
           },
           child: const Text(
             "Registrate Aca",

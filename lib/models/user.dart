@@ -1,19 +1,13 @@
 class User {
-  final String usuario;
-  final String clave;
-  final String acceso;
+  String? userName;
+  String? password;
+  String? surname;
+  String? name;
 
   User({
-    required this.usuario,
-    required this.clave,
-    required this.acceso,
+    this.userName,
+    this.password,
+    this.surname,
+    this.name,
   });
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      usuario: json['usuario'],
-      clave: json['clave'],
-      acceso: json['acceso'],
-    );
-  }
 }

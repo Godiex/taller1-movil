@@ -1,15 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taller1/widgets/widgets.dart';
+import '../../models/user.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
+  final User user;
+
+  const RegisterScreen({
+    super.key,
+    required this.user
+  });
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+
   final GlobalWidgetDialog globalDialog = GlobalWidgetDialog();
+
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController surnameController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final TextEditingController userNameController = TextEditingController();
 
-  RegisterScreen({super.key});
+  void createUser(){
+    if (nameController.text.isNotEmpty &&
+        surnameController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        userNameController.text.isNotEmpty) {
+      widget.user.name = nameController.text;
+      widget.user.surname = surnameController.text;
+      widget.user.userName = userNameController.text;
+      widget.user.password = passwordController.text;
+      Navigator.pop(context, widget.user);
+    } else {
+      globalDialog.seeDialogInfo(context, "Hay Uno O Mas Campos Vacios");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +68,7 @@ class RegisterScreen extends StatelessWidget {
                 color: Colors.white,
                 icon: FontAwesomeIcons.lock,
                 label: "Primer y Segundo Apellido",
-                obscureText: true,
+                obscureText: false,
               ),
               RadialInput(
                 controller: userNameController,
@@ -56,7 +87,7 @@ class RegisterScreen extends StatelessWidget {
               RadialButton(
                   color: mainColor,
                   text: "Registrar",
-                  press: () => {},
+                  press: createUser,
                   textColor: Colors.white
               ),
             ],

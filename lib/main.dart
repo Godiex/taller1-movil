@@ -14,8 +14,7 @@ class MyApp extends StatelessWidget {
       home: LoginScreen(),
       initialRoute: 'login',
       routes: {
-        'login':    (BuildContext context) => LoginScreen(),
-        'register': (BuildContext context) => RegisterScreen(),
+        'login':    (BuildContext context) => LoginScreen()
       },
     );
   }

@@ -27,9 +27,9 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   datetime_picker_formfield: ^1.0.0
+  shared_preferences: ^2.0.15
   flutter_svg: ^0.17.4
   http:
-  google_fonts: ^0.3.8
   font_awesome_flutter: ^9.0.0
 
 dev_dependencies:
